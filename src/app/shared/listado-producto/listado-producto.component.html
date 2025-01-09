@@ -1,0 +1,29 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  multiTemplateDataRows
+  class="table table-striped table-hover"
+>
+  @for (column of NombreColumnas; track column) {
+  <ng-container matColumnDef="{{ column }}">
+    <th mat-header-cell *matHeaderCellDef class="text-center">{{ column }}</th>
+  </ng-container>
+  } 
+  
+  @for (column of columnsToDisplay; track column) {
+  <ng-container matColumnDef="{{ column }}">
+    <td mat-cell *matCellDef="let element" class="text-center">
+      {{ element[column] }}
+    </td>
+  </ng-container>
+  }
+
+  <tr mat-header-row *matHeaderRowDef="NombreColumnas"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay"></tr>
+
+  <tr *matNoDataRow>
+    <td class="text-center" colspan="6">
+      No data matching the filter "{{ searchTerm }}"
+    </td>
+  </tr>
+</table>

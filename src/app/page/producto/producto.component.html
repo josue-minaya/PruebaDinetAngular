@@ -1,0 +1,101 @@
+<div>
+  <div class="w-full justify-between flex items-center p-4 bg-gray-200">
+    <h1>Listado de Productos</h1>
+    <button class="float-right boton bg_boton" (click)="toggleModal()">
+      <mat-icon class="pt-1">add_circle</mat-icon>
+      Nuevo Producto
+    </button>
+  </div>
+
+  <div class="w-full bg_fondo p-4">
+    <div class="rounded-md flex justify-center items-center row g-3">
+      <div class="col-auto">
+        <label class="col-auto">Codigo:</label>
+      </div>
+      <div class="col-auto">
+        <input
+          type="text"
+          class="rounded-md form-control"
+          placeholder="Código"
+          [(ngModel)]="searchCodi"
+        />
+      </div>
+      <div class="col-auto">
+        <label>Nombre:</label>
+      </div>
+      <div class="col-auto">
+        <input
+          type="text"
+          class="rounded-md form-control"
+          placeholder="Nombre"
+          [(ngModel)]="searchTerm"
+        />
+      </div>
+      <div class="col-auto">
+        <button class="float-right boton bg_buscar" (click)="buscar()">
+          <mat-icon class="pt-1">search</mat-icon>
+          Buscar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto">
+    <app-listado-producto
+      [searchTerm]="searchTerm"
+      [searchCodi]="searchCodi"
+    ></app-listado-producto>
+  </div>
+</div>
+
+<section class="modal z-30" [ngClass]="{ 'modal--show': showModal }">
+  <div class="modal__container">
+    <button class="w-10 h-10 rounded-full ml-auto" (click)="toggleModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <h4 class="modal__title">Nuevo Producto</h4>
+
+    <form (ngSubmit)="agregarProducto()" class="w-full">
+      <div class="form-group">
+        <label for="nombre">Nombre Producto</label>
+        <div class="input-div">
+          <div class="i"><mat-icon>library_books</mat-icon></div>
+
+          <input
+            type="text"
+            class="form-control"
+            aria-describedby="nombre"
+            placeholder="Nombre Producto"
+            [(ngModel)]="nuevoProducto.nombre"
+            name="nombre"
+            class="border-none outline-none"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="precio">Precio</label>
+        <div class="input-div">
+          <div class="i"><mat-icon>money</mat-icon></div>
+
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Precio"
+            [(ngModel)]="nuevoProducto.precio"
+            name="precio"
+            class="border-none outline-none"
+            required
+          />
+        </div>
+      </div>
+
+      <input
+        type="submit"
+        class="bg_boton boton float-right"
+        value="Registrar"
+      />
+    </form>
+  </div>
+</section>
